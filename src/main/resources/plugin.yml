@@ -1,0 +1,6 @@
+name: MLGRush
+main: me.liuli.mlgrush.MLGRush
+version: "1.0"
+author: liulihaocai
+api: ["1.0.0"]
+description: plugin

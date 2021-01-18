@@ -1,0 +1,18 @@
+prefix: "§6§lMLG§bRush §8> §7" #message prefix
+kblevel: 3 #level of kb enchant for kb stick
+arena:
+  beds: 10 #bed count for each player in game
+  red: #red spawn pos
+    x: 22
+    y: 8
+    z: 5
+  blue: #blue spawn pos
+    x: -6
+    y: 8
+    z: 5
+title: "§6§lMLG§b§lRush" #scoreboard title
+scoreboard:
+  - "Against: %against%"
+  - "Blue:(%blue%/%max%)"
+  - "Red:(%red%/%max%)"
+  - "§e§lMamoru§6§lNetwork"
