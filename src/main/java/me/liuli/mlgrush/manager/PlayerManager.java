@@ -1,13 +1,8 @@
 package me.liuli.mlgrush.manager;
 
 import cn.nukkit.Player;
-import cn.nukkit.Server;
-import cn.nukkit.level.Level;
-import cn.nukkit.math.Vector3;
-import me.liuli.mlgrush.MLGRush;
 import me.liuli.mlgrush.core.Arena;
 import me.liuli.mlgrush.core.Config;
-import me.liuli.mlgrush.utils.OtherUtils;
 
 import java.util.HashMap;
 import java.util.Map;

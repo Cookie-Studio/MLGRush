@@ -2,12 +2,11 @@ package me.liuli.mlgrush.manager;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
-import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import me.liuli.mlgrush.MLGRush;
 import me.liuli.mlgrush.core.Arena;
 import me.liuli.mlgrush.core.Config;
-import me.liuli.mlgrush.utils.OtherUtils;
+import me.liuli.mlgrush.utils.OtherUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class ArenaManager {
     public static void createArena(Player red,Player blue){
         try {
             String levelName=getRandomLevelName();
-            OtherUtils.copyDir(MLGRush.plugin.getDataFolder().getPath()+"/map/","./worlds/"+levelName+"/");
+            OtherUtil.copyDir(MLGRush.plugin.getDataFolder().getPath()+"/map/","./worlds/"+levelName+"/");
             Server.getInstance().loadLevel(levelName);
             Level level=Server.getInstance().getLevelByName(levelName);
             level.stopTime();
@@ -72,7 +71,7 @@ public class ArenaManager {
             arenas.remove(arena);
             String levelName=arena.level.getFolderName();
             Server.getInstance().unloadLevel(arena.level);
-            OtherUtils.delDir("./worlds/"+levelName+"/");
+            OtherUtil.delDir("./worlds/"+levelName+"/");
         } catch (Exception e) {
             e.printStackTrace();
         }

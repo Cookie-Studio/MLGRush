@@ -6,9 +6,10 @@ import me.liuli.mlgrush.listeners.BlockListener;
 import me.liuli.mlgrush.listeners.PlayerListener;
 import me.liuli.mlgrush.manager.ArenaManager;
 import me.liuli.mlgrush.manager.CommandManager;
-import me.liuli.mlgrush.utils.OtherUtils;
+import me.liuli.mlgrush.utils.OtherUtil;
 
 import java.io.File;
+import java.io.IOException;
 
 public class MLGRush extends PluginBase {
     public static MLGRush plugin;
@@ -23,15 +24,25 @@ public class MLGRush extends PluginBase {
     public void onEnable() {
         plugin = this;
 
-        if (!new File(getDataFolder().getPath()+"/fastjson.jar").exists()) {
-            OtherUtils.readJar("fastjson.jar",jarDir,getDataFolder().getPath()+"/fastjson.jar");
+        if(!this.getServer().getPluginManager().getPlugins().containsKey("FastJSONLib")){
+            //download plugin
+            try {
+                String pluginPath=this.getServer().getPluginPath();
+                OtherUtil.downloadFile("https://github.com/liulihaocai/FJL/releases/download/1.0/FastJSONLib-1.0.jar",
+                        pluginPath,"FastJSONLib-1.0.jar");
+                //then load it
+                this.getServer().getPluginManager()
+                        .loadPlugin(new File(pluginPath,"FastJSONLib-1.0.jar").getPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        OtherUtils.injectClass(new File(getDataFolder().getPath()+"/fastjson.jar"));
-        getDataFolder().mkdirs();
+
+        this.getDataFolder().mkdirs();
         Config.load();
         ArenaManager.check();
-        getServer().getPluginManager().registerEvents(new PlayerListener(), this);
-        getServer().getPluginManager().registerEvents(new BlockListener(), this);
-        getServer().getCommandMap().register("mlgrush",new CommandManager());
+        this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+        this.getServer().getPluginManager().registerEvents(new BlockListener(), this);
+        this.getServer().getCommandMap().register("mlgrush",new CommandManager());
     }
 }

@@ -6,7 +6,7 @@ import cn.nukkit.math.Vector3;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import me.liuli.mlgrush.MLGRush;
-import me.liuli.mlgrush.utils.OtherUtils;
+import me.liuli.mlgrush.utils.OtherUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,9 +21,9 @@ public class Config {
 
     public static void load(){
         if(!new File(MLGRush.plugin.getDataFolder().getPath()+"/config.yml").exists()){
-            OtherUtils.readJar("config.yml", MLGRush.jarDir, MLGRush.plugin.getDataFolder().getPath()+"/config.yml");
+            OtherUtil.readJar("config.yml", MLGRush.jarDir, MLGRush.plugin.getDataFolder().getPath()+"/config.yml");
         }
-        JSONObject configJSON=JSONObject.parseObject(OtherUtils.y2j(new File(MLGRush.plugin.getDataFolder().getPath()+"/config.yml")));
+        JSONObject configJSON=JSONObject.parseObject(OtherUtil.y2j(new File(MLGRush.plugin.getDataFolder().getPath()+"/config.yml")));
         prefix=configJSON.getString("prefix");
 
         JSONObject arena=configJSON.getJSONObject("arena");

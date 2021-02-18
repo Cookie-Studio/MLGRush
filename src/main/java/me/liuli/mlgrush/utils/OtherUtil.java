@@ -3,9 +3,11 @@ package me.liuli.mlgrush.utils;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.ConfigSection;
 import com.google.gson.GsonBuilder;
+import me.liuli.mlgrush.MLGRush;
 
 import java.io.*;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.channels.FileChannel;
@@ -15,21 +17,46 @@ import java.util.Date;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-public class OtherUtils {
+public class OtherUtil {
     public static String y2j(File file){
         Config yamlConfig = new Config(file,Config.YAML);
         ConfigSection section = yamlConfig.getRootSection();
         return new GsonBuilder().create().toJson(section);
     }
-    public static void injectClass(File file) {
-        try {
-            URLClassLoader autoload = (URLClassLoader) ClassLoader.getSystemClassLoader();
-            Method method = URLClassLoader.class.getDeclaredMethod("addURL", URL.class);
-            method.setAccessible(true);
-            method.invoke(autoload, file.toURI().toURL());
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static void downloadFile(String urlStr,String filePath,String fileName) throws IOException {
+        MLGRush.plugin.getLogger().info("DOWNLOADING "+fileName+" FROM URL: "+urlStr);
+
+        long startTime=System.currentTimeMillis();
+        File jar = new File(filePath, fileName);
+        if (jar.exists()){
+            return;
         }
+        File tmp = new File(jar.getPath()+".tmp");
+        URL url = new URL(urlStr);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setConnectTimeout(3*1000);
+        conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36");
+        InputStream is = conn.getInputStream();
+        int totalSize = conn.getContentLength(),nowSize=0,lastSize=-1;
+        FileOutputStream os = new FileOutputStream(tmp);
+        byte[] buf = new byte[4096];
+        int size = 0;
+        while((size = is.read(buf)) != -1) {
+            os.write(buf, 0, size);
+            nowSize+=size;
+            int progcess=100*nowSize/totalSize;
+            if(progcess%5==0&&progcess!=lastSize){
+                MLGRush.plugin.getLogger().info("DOWNLOADING "+fileName+" PROCESS:"+(100*nowSize/totalSize)+"%");
+                lastSize=progcess;
+            }
+        }
+        is.close();
+        os.flush();
+        os.close();
+        if(jar.exists())
+            jar.delete();
+        tmp.renameTo(jar);
+        MLGRush.plugin.getLogger().info("DOWNLOAD "+fileName+" COMPLETE("+((System.currentTimeMillis()-startTime)/1000)+"s)");
     }
     public static void writeFile(String path,String text) {
         try {
