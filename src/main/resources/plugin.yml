@@ -4,3 +4,4 @@ version: "1.0"
 author: liulihaocai
 api: ["1.0.0"]
 description: plugin
+depend: ["ScoreboardAPI"]
