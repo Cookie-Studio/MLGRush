@@ -28,8 +28,8 @@
 
     <repositories>
         <repository>
-            <id>repo</id>
-            <url>http://127.0.0.1</url>
+            <id>liuli-repo</id>
+            <url>http://mc.liulihaocai.pw:1919/maven</url>
         </repository>
         <repository>
             <id>nukkitx-repo</id>

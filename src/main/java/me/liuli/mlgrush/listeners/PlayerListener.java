@@ -34,7 +34,8 @@ public class PlayerListener implements Listener {
             }
             event.setCancelled();
         }else{
-            event.setDamage(-1);
+            event.setDamage(0.1F);//fix ac
+            event.getEntity().setHealth(event.getEntity().getMaxHealth());
         }
     }
     @EventHandler(priority = EventPriority.HIGHEST)
