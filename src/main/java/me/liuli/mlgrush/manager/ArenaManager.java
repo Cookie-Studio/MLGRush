@@ -45,6 +45,10 @@ public class ArenaManager {
             arenas.add(arena);
             arena.tpRedToSpawn();
             arena.tpBlueToSpawn();
+
+            red.setGamemode(0);
+            blue.setGamemode(0);
+
             arena.giveItem();
 
             red.sendMessage("Game Started!");

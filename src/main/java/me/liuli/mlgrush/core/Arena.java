@@ -1,5 +1,6 @@
 package me.liuli.mlgrush.core;
 
+import cn.cookiestudio.lobbysystem.PluginMain;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
@@ -59,10 +60,9 @@ public class Arena {
         updateBlueSb();
     }
     public void remove(boolean tp){
-        Position spawn=Server.getInstance().getDefaultLevel().getSafeSpawn();
         if(tp){
-            red.teleport(spawn);
-            blue.teleport(spawn);
+            red.teleport(PluginMain.getInstance().getLobby().getLobbyConfig().getLobbyPosition());
+            blue.teleport(PluginMain.getInstance().getLobby().getLobbyConfig().getLobbyPosition());
             red.getInventory().clearAll();
             blue.getInventory().clearAll();
             redScoreboard.hideFor(red);

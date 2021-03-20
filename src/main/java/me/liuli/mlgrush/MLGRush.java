@@ -5,7 +5,7 @@ import me.liuli.mlgrush.core.Config;
 import me.liuli.mlgrush.listeners.BlockListener;
 import me.liuli.mlgrush.listeners.PlayerListener;
 import me.liuli.mlgrush.manager.ArenaManager;
-import me.liuli.mlgrush.manager.CommandManager;
+import me.liuli.mlgrush.command.MLGRushCommand;
 import me.liuli.mlgrush.utils.OtherUtil;
 
 import java.io.File;
@@ -43,6 +43,6 @@ public class MLGRush extends PluginBase {
         ArenaManager.check();
         this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
         this.getServer().getPluginManager().registerEvents(new BlockListener(), this);
-        this.getServer().getCommandMap().register("mlgrush",new CommandManager());
+        this.getServer().getCommandMap().register("mlgrush",new MLGRushCommand());
     }
 }

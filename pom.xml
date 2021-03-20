@@ -57,5 +57,11 @@
             <version>1.3</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>cn.cookiestudio</groupId>
+            <artifactId>Easy4Form</artifactId>
+            <version>1.0.2</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>
